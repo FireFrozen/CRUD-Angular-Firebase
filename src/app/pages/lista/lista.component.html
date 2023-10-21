@@ -1,0 +1,35 @@
+
+
+<div class="p-4 text-white">
+
+    <h1 class='text-3xl my-8'>Lista de productos</h1>
+
+    <a class="btn btn-success my-4" [routerLink]="['create-item']">
+        Nuevo
+    </a>
+
+    <table class="table table-primary">
+        <thead>
+            <tr>
+                <th className='border border-slate-400 rounded-md'>N°</th>
+                <th className='border border-slate-400 rounded-md'>Nombre</th>
+                <th className='border border-slate-400 rounded-md'>Tipo</th>
+                <th className='border border-slate-400 rounded-md'>Precio</th>
+                <th className='border border-slate-400 rounded-md'>Operaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productos; index as i">
+                <td>{{i + 1}}</td>
+                <td>{{product.nombre}}</td>
+                <td>{{product.tipo}}</td>
+                <td>{{product.precio | currency:'S/. '}}</td>
+                <td>
+                    <button class="btn btn-dark mx-2" [routerLink]="['edit-item', product.id]">Editar</button>
+                    <button class="btn btn-danger"  (click)="onClickDelete(product)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    
+    </table>
+</div>
