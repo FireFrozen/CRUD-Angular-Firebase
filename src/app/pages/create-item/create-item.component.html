@@ -1,24 +1,47 @@
 
 <div class="p-4 text-white">
-    <app-back-button></app-back-button>
+    <div *ngIf="isLoading; else createItem" class="d-flex justify-content-center align-items-center min-vh-100">
+        <app-loading></app-loading>
+    </div>
 
-    <h1 className='text-3xl my-4'> Create Employe</h1>
+    <ng-template #createItem>
 
-    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-        <div class="mb-3 w-50">
-            <label class="form-label">Nombre</label>
-            <input type="text" class="form-control" formControlName="nombre">
-        </div>
-        <div class="mb-3 w-50">
-            <label class="form-label">Tipo</label>
-            <input type="text" class="form-control" formControlName="tipo">
-        </div>
-        <div class="mb-3 w-25">
-            <label class="form-label">Precio</label>
-            <input type="text" class="form-control" formControlName="precio">
-        </div>
-        <input type="submit" value="Enviar" class="btn btn-info">
-    </form>
+        <app-back-button></app-back-button>
+
+        <h1 className='text-3xl my-4'> Create Employe</h1>
+
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+            <div class="mb-3 w-50">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" formControlName="nombre">
+                <span class="text-danger" *ngIf="this.formulario.get('nombre')?.errors?.['required']&& 
+                                formulario.controls['nombre']?.touched">
+                    (El nombre no puede quedar vacío)
+                </span>
+            </div>
+            <div class="mb-3 w-50">
+                <label class="form-label">Tipo</label>
+                <input type="text" class="form-control" formControlName="tipo">
+                <span class="text-danger" *ngIf="this.formulario.get('tipo')?.errors?.['required']&& 
+                                formulario.controls['tipo']?.touched">
+                    (El tipo no puede quedar vacío)
+                </span>
+            </div>
+            <div class="mb-3 w-25">
+                <label class="form-label">Precio</label>
+                <input type="text" class="form-control" formControlName="precio">
+                <span class="text-danger" *ngIf="this.formulario.get('precio')?.errors?.['required']&& 
+                                formulario.controls['precio']?.touched">
+                    (El precio no puede quedar vacío)
+                </span>
+            </div>
+            <input type="submit" value="Enviar" class="btn btn-info">
+            <span class="text-danger" *ngIf="this.creacionInvalida">
+                    (Rellene los campos primero)
+            </span>
+        </form>
+
+    </ng-template>
 
 </div>
 

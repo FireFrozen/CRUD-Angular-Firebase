@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -11,21 +11,40 @@ import { ProductsService } from 'src/app/services/products.service';
 export class CreateItemComponent {
   
   formulario:FormGroup;
+
+  isLoading: boolean = false;
+
+  creacionInvalida: boolean = false;
   
   constructor( private productsService: ProductsService, private router: Router ){
     this.formulario = new FormGroup({
-      nombre: new FormControl(),
-      tipo: new FormControl(),
-      precio: new FormControl(),
+      nombre: new FormControl('', [Validators.required]),
+      tipo: new FormControl('', [Validators.required]),
+      precio: new FormControl('', [Validators.required]),
  
     })
   }
 
   async onSubmit(){
-    console.log(this.formulario.value);
-    const res = await this.productsService.addProductos(this.formulario.value);
-    console.log(res);
-    this.router.navigate(['/']);
+    
+
+    if (!this.formulario.get('nombre')?.errors?.['required'] && 
+        !this.formulario.get('tipo')?.errors?.['required'] && 
+        !this.formulario.get('precio')?.errors?.['required']){
+
+          console.log(this.formulario.value);
+
+          this.isLoading = true;
+
+          const res = await this.productsService.addProductos(this.formulario.value);
+
+          this.isLoading = false;
+
+          console.log(res);
+          this.router.navigate(['/']);
+    } else{
+      this.creacionInvalida = true;
+    }
     
   }
 

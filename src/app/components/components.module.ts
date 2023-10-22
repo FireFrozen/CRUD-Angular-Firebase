@@ -16,6 +16,7 @@ import { LoadingComponent } from './loading/loading.component';
   ],
   exports: [
     BackButtonComponent,
+    LoadingComponent
   ]
 })
 export class ComponentsModule { }

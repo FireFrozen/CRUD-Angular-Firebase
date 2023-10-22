@@ -22,6 +22,8 @@ export class ListaComponent {
 
   ];
 
+  isLoading: boolean=true;
+
   constructor( private productsService: ProductsService ){
 
   }
@@ -30,8 +32,10 @@ export class ListaComponent {
     this.productsService.getProductos().subscribe(productos =>{
       console.log(productos);
       this.productos = productos;
-
+      this.isLoading = false;
     })
+
+
   }
 
   async onClickDelete(product: Producto){

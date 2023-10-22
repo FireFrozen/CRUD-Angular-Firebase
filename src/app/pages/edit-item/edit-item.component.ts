@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/interfaces/producto';
 import { ProductsService } from 'src/app/services/products.service';
@@ -12,9 +12,13 @@ import { ProductsService } from 'src/app/services/products.service';
 export class EditItemComponent {
   formulario:FormGroup;
 
+  isLoading: boolean=false;
+
   prodId: any;
   product: any;
   docSnap: any;
+
+  editInvalid: boolean = false;
   
   constructor( 
     private productsService: ProductsService ,
@@ -22,9 +26,9 @@ export class EditItemComponent {
     private router: Router
     ){
       this.formulario = new FormGroup({
-        nombre: new FormControl(''),
-        tipo: new FormControl(),
-        precio: new FormControl(),
+        nombre: new FormControl('', [Validators.required]),
+        tipo: new FormControl('', [Validators.required]),
+        precio: new FormControl('', [Validators.required]),
     })
 
     this.ruta.params.subscribe(params =>{
@@ -35,12 +39,23 @@ export class EditItemComponent {
   }
 
   async onSubmit(){
-    console.log(this.formulario.value);
+    if (!this.formulario.get('nombre')?.errors?.['required'] && 
+        !this.formulario.get('tipo')?.errors?.['required'] && 
+        !this.formulario.get('precio')?.errors?.['required']){
 
-    const res = await this.productsService.updateProductos(this.docSnap, this.formulario.value);
-    console.log(res);
-    this.router.navigate(['/']);
-    
+          console.log(this.formulario.value);
+
+          this.isLoading = true;
+
+          const res = await this.productsService.updateProductos(this.docSnap, this.formulario.value);
+          
+          this.isLoading = false;
+
+          console.log(res);
+          this.router.navigate(['/']);
+        } else {
+            this.editInvalid = true;
+        }
   }
 
   async ngOnInit():Promise<void> {
