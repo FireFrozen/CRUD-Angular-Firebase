@@ -1,0 +1,29 @@
+<div class="p-4 text-white d-flex flex-column">
+    <h1 class="text-3xl my-8 text-center">CRUD Application</h1>
+
+
+    <div class="btn-container-main">
+        <button class="btn btn-secondary" [routerLink]="['register']">
+            Register
+        </button>
+    
+        <button class="btn btn-primary" [routerLink]="['login']">
+            Login
+        </button>
+    </div>
+    
+
+    <div class="d-flex flex-column justify-content-center text-center mt-5">
+        <p>Para ver la lista necesita registrarse primero</p>
+
+        <div>
+            <button class="btn btn-success" [routerLink]="['lista']">
+                Ver lista de Productos
+            </button>
+        </div>
+        
+    </div>
+    
+
+
+</div>

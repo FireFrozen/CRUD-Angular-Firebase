@@ -1,0 +1,25 @@
+<div class="p-4 text-white">
+    
+    <button class="btn btn-success my-3" [routerLink]="['/']"> Regresar</button>
+
+    <h1 className='text-3xl my-4'> Register</h1>
+
+    <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+        <div class="mb-3 w-50">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email">
+
+        </div>
+        <div class="mb-3 w-50">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" formControlName="password">
+
+        </div>
+
+        <input type="submit" value="Enviar" class="btn btn-secondary">
+
+    </form>
+    <hr>
+    <p>Ya tiene cuenta? <a class="text-success" [routerLink]="['/login']">Login </a> </p>
+
+</div>

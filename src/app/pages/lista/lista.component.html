@@ -6,7 +6,17 @@
     </div>
 
     <ng-template #lista>
-        <h1 class='text-3xl my-8'>Lista de productos</h1>
+
+        <div class="d-flex justify-content-between">
+            <h1 class='text-3xl my-8'>Lista de productos</h1>
+
+            <a class="btn btn-danger my-4" (click)="onLogout()">
+                Logout
+            </a>
+    
+        </div>
+
+        <p>Bienvenido, {{this.usuario}}</p>
 
         <a class="btn btn-success my-4" [routerLink]="['create-item']">
             Nuevo

@@ -41,7 +41,7 @@ export class CreateItemComponent {
           this.isLoading = false;
 
           console.log(res);
-          this.router.navigate(['/']);
+          this.router.navigate(['/lista']);
     } else{
       this.creacionInvalida = true;
     }

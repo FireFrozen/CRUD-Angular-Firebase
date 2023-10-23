@@ -52,7 +52,7 @@ export class EditItemComponent {
           this.isLoading = false;
 
           console.log(res);
-          this.router.navigate(['/']);
+          this.router.navigate(['/lista']);
         } else {
             this.editInvalid = true;
         }
