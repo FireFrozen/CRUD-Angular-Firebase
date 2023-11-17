@@ -1,3 +1,4 @@
+import { PlatformLocation } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,10 +11,14 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent {
   formReg: FormGroup;
+  errorStatus: any;
+
+  //googleIcon: string = 'assets/google-icon.png';
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    //private platformLocation: PlatformLocation
   ){
     this.formReg = new FormGroup({
       email: new FormControl(),
@@ -28,7 +33,22 @@ export class LoginComponent {
         //console.log(res);
         this.router.navigate(['/lista'])
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error)
+        switch (error.code){
+          case "auth/invalid-login-credentials":
+            this.errorStatus = "Email o contraseña incorrectos";
+            break;
+
+          case "auth/invalid-email":
+            this.errorStatus = "El email es inválido";
+            break;
+
+          default:
+            this.errorStatus = error.code;
+            break;
+        }
+      })
   }
 
   async loginWithGoogle(){

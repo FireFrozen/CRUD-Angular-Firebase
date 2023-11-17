@@ -1,0 +1,37 @@
+.userProfile{
+    border-radius: 50%;
+    height: 96px;
+    width: 96px;
+    background-color: antiquewhite;
+}
+
+.popup{
+    position: absolute;
+    width: 400px;
+    height: 40%;
+    top: 30%;
+    left: calc(50% - 200px);
+    text-align: center;
+    background: rgb(8, 54, 133);
+    border-radius: 20px;
+    border: 2px solid white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.popup p {
+    color: white;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.CloseIcon{
+    cursor:pointer;
+    font-size: 30px;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}

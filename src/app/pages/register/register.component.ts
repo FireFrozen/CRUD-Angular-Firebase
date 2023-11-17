@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class RegisterComponent {
 
   formReg: FormGroup;
+  errorStatus: any;
 
   constructor(
     private userService: UserService,
@@ -27,9 +28,37 @@ export class RegisterComponent {
     this.userService.register(this.formReg.value)
       .then(res => {
         console.log(res);
-        this.router.navigate(['/login'])
+        this.router.navigate(['/'])
+        this.userService.logout();
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error);
+
+        switch (error.code){
+          case "auth/email-already-in-use":
+            this.errorStatus = "El usuario ya está en uso";
+            break;
+
+          case "auth/invalid-email":
+            this.errorStatus = "El email es inválido";
+            break;
+
+          case "auth/weak-password":
+            this.errorStatus = "La contraseña debe tener más de 5 caracteres";
+            break;  
+
+          default:
+            this.errorStatus = error.code;
+            break;
+        }
+
+        // if (error.code == "auth/email-already-in-use"){
+        //   this.errorStatus = "El usuario ya está en uso";
+        // } else{
+        //   this.errorStatus = error.code;
+        // }
+
+      })
   }
 
 

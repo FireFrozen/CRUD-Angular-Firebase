@@ -9,6 +9,7 @@ import { EditItemComponent } from './edit-item/edit-item.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { MainComponent } from './main/main.component';
         AppRoutingModule,
         ComponentsModule,
         ReactiveFormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        NgxPaginationModule
     ]
 })
 export class PagesModule { }

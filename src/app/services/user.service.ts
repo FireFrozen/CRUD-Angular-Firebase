@@ -7,6 +7,7 @@ import { Auth, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEma
 export class UserService {
 
   userData: any;
+  userPhotoURL: any;
 
   constructor(private auth: Auth) { }
 
@@ -20,6 +21,7 @@ export class UserService {
         this.userData = userCredential.user.email;
         //console.log(this.userData);
         localStorage.setItem('usuario', this.userData);
+        localStorage.setItem('hasPhoto', "false");
       })
   }
 
@@ -28,7 +30,13 @@ export class UserService {
       .then((userCredential)=>{
         this.userData = userCredential.user.displayName;
         //console.log(this.userData);
+        console.log(userCredential.user);
+
+        this.userPhotoURL = userCredential.user.photoURL;
+
         localStorage.setItem('usuario', this.userData);
+        localStorage.setItem('userPhoto', this.userPhotoURL);
+        localStorage.setItem('hasPhoto', "true");
       })
   }
 

@@ -24,9 +24,17 @@ export class ListaComponent {
 
   ];
 
-  usuario: any;
+  page: number = 1;
+  itemsPerPage: number = 10;
 
-  isLoading: boolean=true;
+  usuario: any;
+  userPhoto: any;
+
+  hasPhoto: boolean = false;
+
+  isLoading: boolean = true;
+
+  statePopup: string = '';
 
   constructor( 
     private productsService: ProductsService, 
@@ -48,6 +56,13 @@ export class ListaComponent {
     console.log(this.usuario);
     console.log(typeof(this.usuario));
 
+    this.userPhoto = localStorage.getItem('userPhoto');
+
+    if ((localStorage.getItem('hasPhoto')) == ('true')){
+      this.hasPhoto = true;
+    } else{
+      this.hasPhoto = false;
+    }
 
   }
 
@@ -65,4 +80,12 @@ export class ListaComponent {
       .catch(error => console.log(error));
   }
 
+  openPopup(id : any){
+    this.statePopup = id;
+  }
+
+  closePopup(){
+    this.statePopup  = '';
+    console.log(this.statePopup);
+  }
 }

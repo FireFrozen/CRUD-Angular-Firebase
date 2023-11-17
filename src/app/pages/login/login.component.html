@@ -17,6 +17,7 @@
         </div>
 
         <input type="submit" value="Enviar" class="btn btn-secondary">
+        <p class="text-danger"> {{this.errorStatus}} </p>
 
     </form>
     <hr>
@@ -24,7 +25,7 @@
 
     <button class="btn btn-primary my-3 d-flex flex-row" (click)="loginWithGoogle()">
         <div class="icon-container">
-            <img class="" src="../../../assets/google-icon.png" alt="icon-google" style="width: 1rem; height: 1rem;">
+            <img class="" src="assets/google-icon.png" alt="icon-google" style="width: 1rem; height: 1rem;">
         </div>
         Login con Google
     </button>

@@ -16,7 +16,17 @@
     
         </div>
 
-        <p>Bienvenido, {{this.usuario}}</p>
+        <div>
+            <p>Bienvenido, {{this.usuario}}</p>
+
+            <img *ngIf="hasPhoto; else notPhoto" class="userProfile" src={{this.userPhoto}} alt="user-photo">
+            
+            <ng-template #notPhoto>
+                <img class="userProfile" src="assets/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent-300x298.png" alt="user-photo">
+            </ng-template>
+            
+        </div>
+
 
         <a class="btn btn-success my-4" [routerLink]="['create-item']">
             Nuevo
@@ -24,7 +34,7 @@
 
         <table class="table table-primary table-striped">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th className=''>N°</th>
                     <th className=''>Nombre</th>
                     <th className=''>Tipo</th>
@@ -33,18 +43,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let product of productos; index as i">
-                    <td>{{i + 1}}</td>
+                <tr *ngFor="let product of productos| paginate: { itemsPerPage: itemsPerPage, currentPage: page }; index as i ">
+                    <td>{{(i + 1) + (page-1)*itemsPerPage}}</td>
                     <td>{{product.nombre}}</td>
                     <td>{{product.tipo}}</td>
                     <td>{{product.precio | currency:'S/. '}}</td>
                     <td>
-                        <button class="btn btn-dark mx-2" [routerLink]="['edit-item', product.id]">Editar</button>
-                        <button class="btn btn-danger"  (click)="onClickDelete(product)">Eliminar</button>
+                        <button class="btn btn-dark mx-2 my-2" [routerLink]="['edit-item', product.id]">Editar</button>
+                        <button class="btn btn-danger"  (click)="openPopup(product.id)">Eliminar</button>
+
+                        <div class="popup" *ngIf="statePopup == product.id">
+                            <div (click)="closePopup()" class="CloseIcon">&#10006;</div>
+                            <p>Are you sure to delete {{product.nombre}}?</p>
+
+                            <button class="btn btn-danger"  (click)="onClickDelete(product)">Eliminar</button>
+                        </div>
                     </td>
                 </tr>
             </tbody>    
         </table>
+
+        <div class="text-center">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
 
     </ng-template>
     
